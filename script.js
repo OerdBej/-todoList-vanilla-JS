@@ -13,12 +13,30 @@ loadEventListeners();
 function loadEventListeners() {
   form.addEventListener("submit", addTask);
 }
-
+// load the event listeners
+loadEventListeners();
 //add task
 function addTask(e) {
   if (taskInput.value === "") {
     alert("⭕️Add task⭕️");
   }
 
+  //create and append the list. className from materialize
+  const li = document.createElement("li");
+  li.className = "collection-item";
+  li.appendChild(document.createTextNode(taskInput.value));
+  console.log(li);
+
+  // creating the link
+  const link = document.createElement("a");
+  link.className = "delete-item secondary-content";
+  link.innerHTML = '<i class="fa fa-remove"></i>';
+  li.appendChild(link);
+
+  //append the li to the UI
+  taskList.appendChild(li);
+
+  //reset the input value to empty string
+  taskInput.value = "";
   e.preventDefault();
 }
