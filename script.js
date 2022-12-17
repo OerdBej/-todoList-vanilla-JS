@@ -12,6 +12,7 @@ loadEventListeners();
 //load all event listeners
 function loadEventListeners() {
   form.addEventListener("submit", addTask);
+  taskList.addEventListener("click", removeTask);
 }
 // load the event listeners
 loadEventListeners();
@@ -39,4 +40,13 @@ function addTask(e) {
   //reset the input value to empty string
   taskInput.value = "";
   e.preventDefault();
+}
+
+//using the event delegation to target the parent.
+
+function removeTask(e) {
+  if (e.target.parentElement.classList.contains("delete-item")) {
+    // targeting the parent of the parent to remove
+    e.target.parentElement.parentElement.remove();
+  }
 }
