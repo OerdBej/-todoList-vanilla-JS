@@ -97,7 +97,18 @@ function removeTask(e) {
 }
 
 function removeTaskFromLocalStorage(taskItem) {
-  console.log(taskItem);
+  let tasks;
+  if (localStorage.getItem("tasks") === null) {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem("tasks"));
+  }
+  tasks.forEach(function (task, index) {
+    if (task.textContent === task) {
+      tasks.splice(index, 1);
+    }
+  });
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 //clear the innerHTML tasks list
