@@ -39,17 +39,35 @@ function addTask(e) {
   //append the li to the UI
   taskList.appendChild(li);
 
+  //localStorage: get the data from user input
+
+  storeTaskInLocalStorage(taskInput.value);
+
   //reset the input value to empty string
   taskInput.value = "";
   e.preventDefault();
+}
+
+//local storage give us string, so we use the method
+function storeTaskInLocalStorage(task) {
+  let tasks;
+  if (localStorage.getItem("task") === null) {
+    tasks = [];
+  } else {
+    task = JSON.parse(localStorage.getItem("tasks"));
+  }
+  tasks.push(task);
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 //using the event delegation to target the parent.
 
 function removeTask(e) {
   if (e.target.parentElement.classList.contains("delete-item")) {
-    // targeting the parent of the parent to remove
-    e.target.parentElement.parentElement.remove();
+    if (confirm("Are you sure")) {
+      // targeting the parent of the parent to remove
+      e.target.parentElement.parentElement.remove();
+    }
   }
 }
 
@@ -58,11 +76,12 @@ function clearTasks() {
   taskList.innerHTML = "";
 }
 
-//fLoop through each node list created
+//fLoop through each node list created.
 
 function filterTasks(e) {
   const text = e.target.value.toLowerCase();
 
+  //the li list that we created is a node list, so we use forEach
   document.querySelectorAll(".collection-item").forEach(function (task) {
     const item = task.firstChild.textContent;
     if (item.toLocaleLowerCase().indexOf(text) != -1) {
