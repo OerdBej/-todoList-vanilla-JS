@@ -114,6 +114,13 @@ function removeTaskFromLocalStorage(taskItem) {
 //clear the innerHTML tasks list
 function clearTasks() {
   taskList.innerHTML = "";
+
+  //clear task from the local storage
+  clearTasksFromLocalStorage();
+}
+
+function clearTasksFromLocalStorage() {
+  localStorage.clear();
 }
 
 //fLoop through each node list created.
